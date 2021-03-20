@@ -1,13 +1,13 @@
 /* eslint-disable no-param-reassign */
 import { createSlice } from '@reduxjs/toolkit';
-import { getUserQueues, deleteQueue, getQueueStatusByName } from 'store/asyncActions';
+import { deleteQueue, getQueueStatusByName, joinQueue } from 'store/asyncActions';
 
 const appSlice = createSlice({
   name: 'appSlice',
   initialState: {
     errorText: '',
     infoText: '',
-    notificationPermission: null, // This state value is initilised by the notification service.
+    notificationPermission: null, // This state value is initialised by the notification service.
   },
   reducers: {
     setErrorPopupMessage: (state, action) => {
@@ -21,15 +21,6 @@ const appSlice = createSlice({
     },
   },
   extraReducers: {
-    [getUserQueues.pending]: (state) => {
-      state.infoText = `Loading queues...`;
-    },
-    [getUserQueues.rejected]: (state, action) => {
-      state.errorText = action.error.message;
-    },
-    [getUserQueues.fulfilled]: (state, action) => {
-      state.infoText = `Number of queues fetched: ${action.payload.queues.length}`;
-    },
     [deleteQueue.pending]: (state) => {
       state.infoText = `Deleting queue...`;
     },
@@ -41,6 +32,15 @@ const appSlice = createSlice({
     },
     [getQueueStatusByName.rejected]: (state, action) => {
       state.errorText = action.payload.message;
+    },
+    [joinQueue.pending]: (state) => {
+      state.infoText = `Adding to queue...`;
+    },
+    [joinQueue.rejected]: (state, action) => {
+      state.errorText = action.error.message;
+    },
+    [joinQueue.fulfilled]: (state, action) => {
+      state.infoText = `Added to ${action.payload.queueName}`;
     },
   },
 });

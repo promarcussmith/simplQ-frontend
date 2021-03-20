@@ -9,9 +9,9 @@ import SidePanelItem from 'components/common/SidePanel/SidePanelItem';
 
 export default () => {
   const queueStatus = useSelector(selectQueueStatus);
-  const token = useSelector(selectToken);
   const dispatch = useDispatch();
   const getQueueStatus = useCallback(useGetQueueStatus(), []);
+  const token = useSelector(selectToken);
 
   useEffect(() => {
     dispatch(getQueueStatus({ queueId: token.queueId }));
@@ -23,7 +23,6 @@ export default () => {
       title="Queue Details"
       description="Other information about the queue"
       expandable
-      loading={false} // TODO: Should be queueStatus's loading
     >
       <QueueStats queueStatus={queueStatus} />
     </SidePanelItem>

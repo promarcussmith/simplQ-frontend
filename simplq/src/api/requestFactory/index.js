@@ -12,13 +12,16 @@
  * }
  *
  * These objects are used to make requests from components using the
- * useRequest  hook. (See src/api/useRequest.js for usage example)
+ * makeAuthedRequest  hook. (See src/api/auth.js for usage details)
  *
  */
-import * as QueueRequestFactory from './queue';
-import * as TokenRequestFactory from './token';
 
-export { QueueRequestFactory, TokenRequestFactory };
-
-export { getUserQueues, deleteQueue, getQueueStatus, getQueueStatusByName } from './queue';
-export { createToken, getToken, deleteToken } from './token';
+export {
+  getUserQueues,
+  getQueue,
+  deleteQueue,
+  getQueueStatus,
+  getQueueStatusByName,
+  createQueue,
+} from './queue';
+export { createToken, getToken, deleteToken, notifyToken } from './token';
